@@ -38,7 +38,10 @@
             AuthService.signup(firstname, lastname, email, password, confirmPassword)
             .then(onSignupSuccess)
             .catch(onSignupError);
-            vm.message = "Please Verify your email before Signing-in";
+            vm.flash = {
+                msg: "Please Verify your email before Signing-in",
+                type: "info"
+            };
         }
 
         function onSignupSuccess(result) {
