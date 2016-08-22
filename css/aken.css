@@ -1,0 +1,43 @@
+
+aside{display:block;}
+
+.logoimg{width:90px;margin-top:-10px;}
+.sidebar{margin-top:6.9%;width:100%;overflow:hidden;}
+.col-md-4{width: 33.33333333333333%;
+float: left;
+position: relative;
+min-height: 1px;
+padding-left: 10px;
+padding-right: 30px;}
+
+.social ul, li {display:inline; list-style-type:none;padding:0px;margin:0px;}
+.contenta{margin-left:-52px;}
+.content img{height:auto;width:94%;}
+
+@media screen and (max-width:767px) 
+{
+	
+	
+	.col-md-4{width:100%;float:left;position:relative;padding-left:2%;padding-right:2%;}
+	.sidebar{margin-top:-5%;}
+	.content img{height:auto;width:100%;}
+}
+
+@media screen and (max-width:260px)
+{
+	.topnav{font-size:8px;}
+	.content img{height:auto;width:100%;}
+	.musictitle{font-size:10px;}
+}
+@media screen and (max-width:284px)
+{
+	.social img{height:35px;}
+	.contenta{margin-left:5px;}
+	.content img{height:auto;width:100%;}
+}
+@media screen and (max-width:225px)
+{
+	.social img{height:25px;}
+	.contenta{margin-left:-20px;}
+	.content img{height:auto;width:100%;}
+}
