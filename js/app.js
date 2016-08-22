@@ -80,6 +80,10 @@ app.controller('AuthController', function($http, Backand, AuthService, $location
         if(error.error_description) {
             toastr.clear();
             toastr.error(error.error_description);
+            vm.flash = {
+                type: "error",
+                msg: error.error_description
+            };
         }
         console.log('Error: ' + JSON.stringify(error));
         //window.location = '/esched.me/user/login';
