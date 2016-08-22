@@ -13,6 +13,7 @@
         }
 
         vm.register = function(firstname, lastname, email, password, confirmPassword) {
+            vm.flash = null;
             AuthService.signup(firstname, lastname, email, password, confirmPassword)
             .then(onSignupSuccess)
             .catch(onSignupError);
