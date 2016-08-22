@@ -7,18 +7,19 @@
         var vm = this;
 
         vm.fbSignIn = function() {
+            vm.flash = null;
             Backand.socialSignin('facebook')
             .then(loginSuccess);
         }
 
         vm.login = function(email, password) {
+            vm.flash = null;
             AuthService.login(email, password)
             .then(loginSuccess)
             .catch(onSignupError);
         }
 
         function loginSuccess(result) {
-            vm.flash = null;
             var req = {
                 url: "login",
                 method: "POST",

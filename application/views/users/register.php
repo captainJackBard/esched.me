@@ -26,7 +26,7 @@
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="/esched.me/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 	<!-- media -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
@@ -178,7 +178,7 @@
 
 
     <!-- jQuery -->
-    <script src="/esched.me/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
 
 	
 	<!-- js plugin -->
