@@ -44,7 +44,7 @@
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your day</p>
 
-    <form id="login_form">
+    <form id="login_form" action="#" method="post">
       
       <div ng-if="vm.flash" class="alert alert-{{vm.flash.type}} alert-dismissible" role="alert" style="margin-left:auto; margin-right:auto; width:90%">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -64,7 +64,7 @@
 
         <!-- /.col -->
         <div class="col-xs-12">
-          <button type="submit" id="login_submit" ng-click="vm.login(vm.email, vm.password)" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button type="submit" id="login_submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
         </div>
         <!-- /.col -->
       </div>
@@ -100,13 +100,6 @@
       increaseArea: '20%' // optional
     });
 
-    // $("#login_form").on('submit', function(form) {
-    //     form.preventDefault();
-    //     console.log($("#login_form").serialize());
-    //     $.post("login", $("#login_form").serialize(), function(data) {
-    //         window.location = '/esched.me/dashboard';
-    //     });
-    // });
   });
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

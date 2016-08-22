@@ -5,34 +5,11 @@
 
     app.controller('AuthController', function($http, Backand, AuthService, $location) {
         var vm = this;
-
+        console.log(Backand.getUserRole())
         vm.fbSignIn = function() {
             vm.flash = null;
             Backand.socialSignin('facebook')
             .then(loginSuccess);
-        }
-
-        vm.login = function(email, password) {
-            vm.flash = null;
-            AuthService.login(email, password)
-            .then(loginSuccess)
-            .catch(onSignupError);
-        }
-
-        function loginSuccess(result) {
-            var req = {
-                url: "login",
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                data: $.param({email: Backand.getUsername()})
-            }
-            $http(req)
-            .then(function(data) {
-                window.location = "/dashboard";
-                console.log(data);
-            });
         }
 
         vm.register = function(firstname, lastname, email, password, confirmPassword) {
@@ -49,7 +26,7 @@
             console.log(result);
             toastr.clear();
             toastr.success("Registration success! Please check your email!");
-            window.location = "user/login";
+            //window.location = "user/login";
         }
 
         function onSignupError(error) {

@@ -30,26 +30,17 @@ class UserModel extends CI_Model {
 
 
         $user = $query->row_array();
-        
-        return array(
-                'status' => 'OK',
-                'message' => 'Login success',
-                'id' => $user['id'],
-                'first_name' => $user['first_name'],
-                'last_name'  => $user['last_name'],
-                'email' => $user['email']
-            );
 
-        // if (sha1($this->input->post('password')) === $user['password']) {
-        //     return array(
-        //         'status' => 'OK',
-        //         'message' => 'Login success',
-        //         'id' => $user['id'],
-        //         'first_name' => $user['first_name'],
-        //         'last_name'  => $user['last_name'],
-        //         'email' => $user['email']
-        //     );
-        // }
+         if (sha1($this->input->post('password')) === $user['password']) {
+             return array(
+                 'status' => 'OK',
+                 'message' => 'Login success',
+                 'id' => $user['id'],
+                 'first_name' => $user['first_name'],
+                 'last_name'  => $user['last_name'],
+                 'email' => $user['email']
+             );
+         }
         
 
         $data['message'] = 'Incorrect password';

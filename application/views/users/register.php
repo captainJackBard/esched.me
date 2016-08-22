@@ -33,9 +33,11 @@ if($this->session->Auth){
 	<script src="//cdn.backand.net/backand/dist/1.8.2/backand.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-route.js"></script>
 
-	<script src="../js/app.js"></script>
-	<script src="../js/controllers/AuthController.js"></script>
-	<script src="../js/services/AuthService.js"></script>
+	<script src="js/sha1.js"></script>
+
+	<script src="js/app.js"></script>
+	<script src="js/controllers/AuthController.js"></script>
+	<script src="js/services/AuthService.js"></script>
 
 </head>
 
