@@ -36,7 +36,7 @@ app.controller('AuthController', function($http, Backand, AuthService, $location
             }
             $http(req)
             .then(function(data) {
-                window.location = "dashboard";
+                window.location = "/dashboard";
                 console.log(data.data);
             });
         });
@@ -55,7 +55,7 @@ app.controller('AuthController', function($http, Backand, AuthService, $location
             }
             $http(req)
             .then(function(data) {
-                window.location = "dashboard";
+                window.location = "/dashboard";
                 console.log(data);
             });
         })
