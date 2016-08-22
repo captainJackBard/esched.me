@@ -12,8 +12,23 @@
             .then(loginSuccess);
         }
 
+        function loginSuccess(result) {
+            var req = {
+                url: "login",
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: $.param({email: Backand.getUsername()})
+            }
+            $http(req)
+            .then(function(data) {
+                window.location = "/dashboard";
+                console.log(data);
+            });
+        }
+
         vm.register = function(firstname, lastname, email, password, confirmPassword) {
-            vm.flash = null;
             AuthService.signup(firstname, lastname, email, password, confirmPassword)
             .then(onSignupSuccess)
             .catch(onSignupError);

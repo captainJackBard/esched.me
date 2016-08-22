@@ -2,7 +2,7 @@
 if($this->session->Auth){
 	return redirect('dashboard');
 }
-?>
+?>f
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,7 +26,6 @@ if($this->session->Auth){
 
 	<!-- Custom Fonts -->
 	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="/esched.me/dist/css/AdminLTE.min.css">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 	<!-- media -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
