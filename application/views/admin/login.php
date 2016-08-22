@@ -53,11 +53,11 @@
 
 
       <div class="form-group has-feedback">
-        <input type="text" ng-model="vm.email" id="email" class="form-control" name="email" placeholder="Email">
+        <input type="text" id="email" class="form-control" name="email" placeholder="Email">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" ng-model="vm.password" id="password" class="form-control" name="password" placeholder="Password">
+        <input type="password" id="password" class="form-control" name="password" placeholder="Password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
