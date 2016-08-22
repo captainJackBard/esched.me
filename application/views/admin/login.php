@@ -32,7 +32,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-route.js"></script>
 
     <script src="../js/app.js"></script>
-
+    <script src="../js/controllers/AuthController.js"></script>
+    <script src="../js/services/AuthService.js"></script>
 </head>
 <body class="hold-transition login-page" ng-app="app" ng-controller="AuthController as vm">
 <div class="login-box">
@@ -44,9 +45,13 @@
     <p class="login-box-msg">Sign in to start your day</p>
 
     <form id="login_form">
-      <?php
-      $this->load->view('elements/notif');
-      ?>
+      
+      <div ng-if="vm.flash" class="alert alert-{{vm.flash.type}} alert-dismissible" role="alert" style="margin-left:auto; margin-right:auto; width:90%">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Message:</strong>  {{vm.flash.msg}}
+      </div>
+
+
       <div class="form-group has-feedback">
         <input type="text" ng-model="vm.email" id="email" class="form-control" name="email" placeholder="Email">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
