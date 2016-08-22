@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/esched.me/';
+$config['base_url'] = 'https://stormy-meadow-46152.herokuapp.com';
 
 /*
 |--------------------------------------------------------------------------
