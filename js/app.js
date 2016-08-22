@@ -55,7 +55,7 @@ app.controller('AuthController', function($http, Backand, AuthService, $location
             }
             $http(req)
             .then(function(data) {
-                window.location = "/esched.me/dashboard";
+                window.location = "dashboard";
                 console.log(data);
             });
         })
@@ -73,7 +73,7 @@ app.controller('AuthController', function($http, Backand, AuthService, $location
         console.log(result);
         toastr.clear();
         toastr.success("Registration success! Please check your email!");
-        window.location = "/esched.me/user/login";
+        window.location = "user/login";
     }
 
     function onSignupError(error) {
