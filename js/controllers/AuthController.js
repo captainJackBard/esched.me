@@ -23,8 +23,8 @@
                 },
                 data: $.param({email: Backand.getUsername()})
             }
-            vm.promise = $http(req)
-            .then(function(data) {
+            vm.promise = $http(req);
+            vm.promise.then(function(data) {
                 window.location = "/dashboard";
                 console.log(data);
             });
