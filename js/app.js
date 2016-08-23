@@ -1,4 +1,4 @@
-var app = angular.module('app', ['backand', 'ngRoute']);
+var app = angular.module('app', ['backand', 'ngRoute', 'cgBusy']);
 
 app.config(function(BackandProvider) {
     BackandProvider.setAppName('dodongx');

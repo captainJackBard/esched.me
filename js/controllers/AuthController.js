@@ -9,10 +9,12 @@
         vm.fbSignIn = function() {
             vm.flash = null;
             Backand.socialSignin('facebook')
-            .then(loginSuccess);
+                .then(loginSuccess);
+
         }
 
         function loginSuccess(result) {
+            var msg = 'Logging in....';
             var req = {
                 url: "login",
                 method: "POST",
@@ -21,11 +23,17 @@
                 },
                 data: $.param({email: Backand.getUsername()})
             }
-            $http(req)
+            vm.promise = $http(req)
             .then(function(data) {
                 window.location = "/dashboard";
                 console.log(data);
             });
+            toastr.clear();
+            toastr.info(msg);
+            vm.flash = {
+                msg: msg,
+                type: "info"
+            }
         }
 
         vm.register = function(firstname, lastname, email, password, confirmPassword) {

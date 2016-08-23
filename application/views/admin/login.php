@@ -16,6 +16,8 @@
   <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="../plugins/iCheck/square/blue.css">
+  <!-- angular busy -->
+  <link rel="stylesheet" href="/esched.me/bower_components/angular-busy/dist/angular-busy.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,6 +32,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
     <script src="//cdn.backand.net/backand/dist/1.8.2/backand.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-route.js"></script>
+    <script src="/esched.me/bower_components/angular-busy/dist/angular-busy.min.js"></script>
 
     <script src="../js/app.js"></script>
     <script src="../js/controllers/AuthController.js"></script>
@@ -43,6 +46,8 @@
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your day</p>
+
+    <div cg-busy="{promise:vm.promise, message: 'Logging in....', backdrop: true}"></div>
 
     <form id="login_form" action="#" method="post">
       <?php
