@@ -45,7 +45,9 @@
     <p class="login-box-msg">Sign in to start your day</p>
 
     <form id="login_form" action="#" method="post">
-      
+      <?php
+        $this->load->view(elements/notif)
+      ?>
       <div ng-if="vm.flash" ng-cloak class="alert alert-{{vm.flash.type}} alert-dismissible" role="alert" style="margin-left:auto; margin-right:auto; width:90%">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong>Message:</strong>  {{vm.flash.msg}}
