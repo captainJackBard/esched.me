@@ -3,9 +3,9 @@
 
     var app = angular.module('app');
 
-    app.service('AuthService', ['Backand', AuthServiceFunction]);
+    app.service('AuthService', ['Backand', '$http', AuthServiceFunction]);
 
-    function AuthServiceFunction(Backand) {
+    function AuthServiceFunction(Backand, $http) {
         var vm = this;
         
         vm.signup = function(firstname, lastname, email, password, confirmPassword) {
@@ -19,6 +19,20 @@
 
                 return;
             }
+        }
+
+        vm.checkEmail = function(email){
+            var url = Backand.getApiUrl() + '/1/query/data/GetUserByEmail';
+
+            return $http.get({
+                url: url,
+                method: 'GET',
+                params: {
+                    parameters: {
+                        email: email.toString()
+                    }
+                }
+            });
         }
 
     }

@@ -5,36 +5,57 @@
 
     app.controller('AuthController', function($http, Backand, AuthService, $location) {
         var vm = this;
-        console.log(Backand.getUserRole())
+
         vm.fbSignIn = function() {
             vm.flash = null;
             Backand.socialSignin('facebook')
-                .then(loginSuccess);
+                .then(function() {
+                    var msg = 'Logging in....';
+                    var req = {
+                        url: "login",
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        data: $.param({email: Backand.getUsername()})
+                    }
+                    vm.promise = $http(req);
+                    vm.promise.then(function(data) {
+                        window.location = "/dashboard";
+                        console.log(data);
+                    });
+                    toastr.clear();
+                    toastr.info(msg);
+                    vm.flash = {
+                        msg: msg,
+                        type: "info"
+                    }
+                });
 
         }
 
-        function loginSuccess(result) {
-            var msg = 'Logging in....';
-            var req = {
-                url: "login",
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                data: $.param({email: Backand.getUsername()})
-            }
-            vm.promise = $http(req);
-            vm.promise.then(function(data) {
-                window.location = "/dashboard";
-                console.log(data);
-            });
-            toastr.clear();
-            toastr.info(msg);
-            vm.flash = {
-                msg: msg,
-                type: "info"
-            }
-        }
+        // function loginSuccess(result) {
+        //     var msg = 'Logging in....';
+        //     var req = {
+        //         url: "login",
+        //         method: "POST",
+        //         headers: {
+        //             'Content-Type': 'application/x-www-form-urlencoded'
+        //         },
+        //         data: $.param({email: Backand.getUsername()})
+        //     }
+        //     vm.promise = $http(req);
+        //     vm.promise.then(function(data) {
+        //         window.location = "/dashboard";
+        //         console.log(data);
+        //     });
+        //     toastr.clear();
+        //     toastr.info(msg);
+        //     vm.flash = {
+        //         msg: msg,
+        //         type: "info"
+        //     }
+        // }
 
         vm.register = function(firstname, lastname, email, password, confirmPassword) {
             AuthService.signup(firstname, lastname, email, password, confirmPassword)
