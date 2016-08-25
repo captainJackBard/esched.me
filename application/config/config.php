@@ -23,8 +23,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://esched.diaz.tech/';
-//$config['base_url'] = 'http://localhost/esched.me/';
+$environment = getenv("ENV");
+if($environment == "PRODUCTION") {
+    $config['base_url'] = 'http://esched.diaz.tech/';
+}
+else {
+    $config['base_url'] = 'http://localhost/esched.me/';
+}
+
 
 /*
 |--------------------------------------------------------------------------

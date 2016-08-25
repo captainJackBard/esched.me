@@ -5,7 +5,7 @@
 
     app.controller('AuthController', function($http, Backand, AuthService, $location) {
         var vm = this;
-        console.log(Backand.getUserRole())
+
         vm.fbSignIn = function() {
             vm.flash = null;
             Backand.socialSignin('facebook')
