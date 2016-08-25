@@ -3,7 +3,7 @@
 
     var app = angular.module('app');
 
-    app.controller('AuthController', function($http, Backand, AuthService, $location) {
+    app.controller('AuthController', function($http, Backand, AuthService) {
         var vm = this;
 
         vm.fbSignIn = function() {
@@ -76,6 +76,12 @@
             }
             console.log('Error: ' + JSON.stringify(error));
         }
+
+        function init() {
+            Backand.signout()
+        }
+
+        init();
 
     });
 
