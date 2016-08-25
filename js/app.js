@@ -7,7 +7,7 @@ app.config(function(BackandProvider) {
 });
 
 app.run(function($rootScope, Backand) {
-
+    Backand.setRunSignupAfterErrorInSigninSocial(false);
     $rootScope.$on(Backand.EVENTS.SIGNIN, function(event, data) {
         
     });

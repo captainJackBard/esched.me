@@ -9,7 +9,19 @@
         vm.fbSignIn = function() {
             vm.flash = null;
             Backand.socialSignin('facebook')
-                .then(loginSuccess);
+                .then(loginSuccess)
+                .catch(function(e){
+                    toastr.error(e.error_description);
+                    vm.flash = {
+                        msg: e.error_description,
+                        type: "error"
+                    };
+                    var passcode = new jsSHA("SHA-1", "TEXT");
+                    passcode.update("");
+                    var hash = passcode.getHash("HEX");
+                    Backand.socialSignup("facebook", {"password": hash})
+                        .then(loginSuccess);
+                });
 
         }
 
