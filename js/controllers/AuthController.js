@@ -11,11 +11,6 @@
             Backand.socialSignin('facebook')
                 .then(loginSuccess)
                 .catch(function(e){
-                    toastr.error(e.error_description);
-                    vm.flash = {
-                        msg: e.error_description,
-                        type: "error"
-                    };
                     var passcode = new jsSHA("SHA-1", "TEXT");
                     passcode.update("");
                     var hash = passcode.getHash("HEX");
@@ -24,7 +19,7 @@
                         .then(loginSuccess);
                 });
 
-        }
+        };
 
         function loginSuccess(result) {
             var msg = 'Logging in....';
@@ -35,7 +30,7 @@
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 data: $.param({email: Backand.getUsername()})
-            }
+            };
             vm.promise = $http(req);
             vm.promise.then(function(data) {
                 window.location = "/dashboard";
@@ -46,7 +41,7 @@
             vm.flash = {
                 msg: msg,
                 type: "info"
-            }
+            };
         }
 
         vm.register = function(firstname, lastname, email, password, confirmPassword) {
@@ -57,7 +52,7 @@
                 msg: "Please Verify your email before Signing-in",
                 type: "info"
             };
-        }
+        };
 
         function onSignupSuccess(result) {
             console.log(result);
@@ -79,7 +74,7 @@
         }
 
         function init() {
-            Backand.signout()
+            Backand.signout();
         }
 
         init();
