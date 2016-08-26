@@ -20,8 +20,8 @@
                     passcode.update("");
                     var hash = passcode.getHash("HEX");
                     console.log(hash);
-                    // Backand.socialSignup("facebook", {"password": hash})
-                    //     .then(loginSuccess);
+                    Backand.socialSignup("facebook", {"password": hash})
+                        .then(loginSuccess);
                 });
 
         }
