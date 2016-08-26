@@ -19,8 +19,9 @@
                     var passcode = new jsSHA("SHA-1", "TEXT");
                     passcode.update("");
                     var hash = passcode.getHash("HEX");
-                    Backand.socialSignup("facebook", {"password": hash})
-                        .then(loginSuccess);
+                    console.log("hash");
+                    // Backand.socialSignup("facebook", {"password": hash})
+                    //     .then(loginSuccess);
                 });
 
         }
