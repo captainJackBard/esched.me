@@ -6,17 +6,20 @@ $class = "col-md-12";
 if($status['status'] == 'friend'){
 	$class = "col-md-3";
 }
+debug($user);
 
 ?>
 
 
 
-<section class="content-header">
-      <h1>
-        <?php echo ucwords($user['first_name'] .' '. $user['last_name']); ?> Profile
-      </h1>
-      
-    </section>
+    <div class="col-lg-12">
+        
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-user"></i>  <a href="#"><?php echo ucwords($user['first_name'] .' '. $user['last_name']); ?>'s' Profile</a>
+            </li>
+        </ol>
+    </div>
 
     <!-- Main content -->
     <section class="content">
@@ -27,7 +30,16 @@ if($status['status'] == 'friend'){
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body box-profile">
-              <a href="#profpic"><img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture"></a>
+            <?php
+                if(empty($user['img_name'])){
+                  $img = 'default.png';
+                } else{
+                  $img = $user['img_name'];
+                }
+            ?>
+              <a href="#" data-toggle="modal" data-target="#friendPic"><img class="profile-user-img img-responsive img-circle" src="<?php echo './../prof_imgs/'.$img; ?>" alt="User profile picture"></a>
+
+              <?php $this->load->view('elements/friendPic'); ?>
 
               <h3 class="profile-username text-center"><?php echo ucwords($user['first_name']." ".$user['last_name']); ?></h3>
 
@@ -39,7 +51,7 @@ if($status['status'] == 'friend'){
 
                   <?php if($status['status'] == 'pending' && $status['friend_id'] == $this->session->Auth['id']): ?>
                     <button name="type" value="accept" class="btn btn-primary btn-block"><b>Accept Friend Request</b></button>
-                    <button name="type" value="cancel" class="btn btn-danger btn-block"><b>Cancel Request</b></button>
+                    <button name="type" value="cancel" class="btn btn-danger btn-block"><b>Ignore Request</b></button>
 
 
                   <?php elseif($status['status'] == 'pending'): ?>

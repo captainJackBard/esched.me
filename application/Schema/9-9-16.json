@@ -1,0 +1,100 @@
+[
+  {
+    "name": "users",
+    "fields": {
+      "first_name": {
+        "type": "string"
+      },
+      "last_name": {
+        "type": "string"
+      },
+      "img_name": {
+        "type": "string"
+      },
+      "birthdate": {
+        "type": "datetime"
+      },
+      "occupation": {
+        "type": "text"
+      },
+      "about_me": {
+        "type": "text"
+      },
+      "created": {
+        "type": "datetime"
+      },
+      "modified": {
+        "type": "datetime"
+      },
+      "email": {
+        "type": "text",
+        "required": true
+      },
+      "password": {
+        "type": "text",
+        "required": true,
+        "defaultValue": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+      }
+    }
+  },
+  {
+    "name": "activities",
+    "fields": {
+      "user_id": {
+        "type": "float"
+      },
+      "title": {
+        "type": "string"
+      },
+      "lat": {
+        "type": "float"
+      },
+      "long": {
+        "type": "float"
+      },
+      "desc": {
+        "type": "text"
+      },
+      "address": {
+        "type": "text"
+      },
+      "created": {
+        "type": "datetime"
+      },
+      "modified": {
+        "type": "datetime"
+      }
+    }
+  },
+  {
+    "name": "relationship",
+    "fields": {
+      "user_id": {
+        "type": "float"
+      },
+      "friend_id": {
+        "type": "float"
+      },
+      "status": {
+        "type": "string"
+      },
+      "created": {
+        "type": "datetime"
+      },
+      "modified": {
+        "type": "datetime"
+      }
+    }
+  },
+  {
+    "name": "activity_tags",
+    "fields": {
+      "activity_id": {
+        "type": "float"
+      },
+      "friend_id": {
+        "type": "float"
+      }
+    }
+  }
+]

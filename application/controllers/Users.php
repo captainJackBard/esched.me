@@ -8,8 +8,7 @@ class Users extends MY_Controller {
     public function __construct(){
         parent::__construct();
 
-        $this->load->helper(array('url', 'form', 'fallingpetals'));
-        $this->load->library('email');
+        // $this->load->helper(array('url', 'form', 'fallingpetals','smiley'));;
     }
 
 
@@ -26,6 +25,7 @@ class Users extends MY_Controller {
                     'email'      => $data['user']['email'],
                     'first_name' => $data['user']['first_name'],
                     'last_name'  => $data['user']['last_name'],
+                    'img_name'   => $data['user']['img_name'],
                     ));
 
                 return redirect('dashboard');
@@ -36,34 +36,37 @@ class Users extends MY_Controller {
 
     public function password()
     {   
-        $data['user'] = $this->UserModel->ProfInfo();
+        
 
         // debug($data);
         if($this->input->post()){
+            $data['user'] = $this->UserModel->ProfInfo();
+            
             // do conditions for passwords here
             if(sha1($this->input->post('old_password')) != $data['user']['password']){
                 $this->notifMessage('warning', 'Update Failed', 'Incorrect Password.');
-                return redirect('password');
+                
             }elseif ($this->input->post('new_password') != $this->input->post('conf_password')) {
                 // password did not match
                 $this->notifMessage('warning', 'Update Failed', 'Password did not match.');
-                return redirect('password');
+                
             }elseif(strlen($this->input->post('new_password')) < 5){
                 // must be atleast 6 chars long
                 $this->notifMessage('warning', 'Update Failed', 'Password must contain atleast 6 characters.');
-                return redirect('password');
+                
             }else{
                 if($this->UserModel->updatePassword($this->input->post())){
                     $this->notifMessage('success', 'Success', 'Password has been changed.');
-                    return redirect('password');
+                    
                 }else{
                     $this->notifMessage('danger', 'Oops!', 'Something went wrong. Please Contact support immediately.');
-                    return redirect('password');
+                    
                 }
             }
         }
-
-        return $this->load->view('users/password',$data);
+        // $this->load->view('users/password',$data);
+        return redirect('dashboard');
+        
     }
 
     public function searches()
@@ -73,13 +76,17 @@ class Users extends MY_Controller {
         if($this->input->post()){
             $data['results'] = $this->UserModel->searches($this->input->post('search'));
         }
-
         return $this->load->view('users/searches',$data);
     }
 
     //view other users profile
     public function view($id)
     {
+
+        if($this->session->Auth['id'] == $id){
+            return redirect('dashboard');
+        }
+
         if($this->input->post()){
             switch ($this->input->post('type')) {
                 case 'add':
@@ -124,6 +131,35 @@ class Users extends MY_Controller {
         return redirect('view/'.$id);
     }
 
+    public function addActivity()
+    {
+        // if($this->input->post()){
+        //     debug($this->input->post());
+        //     exit();
+        // }
+
+        if ($this->input->post()) {
+            
+            $address   = $this->input->post('address');
+            
+            $geo = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.urlencode($address).'&key='.GOOGLE_KEY.'&sensor=false');
+            $geo = json_decode($geo, true);
+            
+            $lat = $geo['results'][0]['geometry']['location']['lat'];
+            $long = $geo['results'][0]['geometry']['location']['lng'];
+            
+            if($lat && $long){
+                if($this->UserModel->addActivity($this->input->post(),$lat,$long)){
+                    $this->notifMessage('success', 'Success', 'Activity Added.');
+                }
+            }else{
+                $this->notifMessage('danger', 'Failed', 'Error on Fetching Coordinates.');
+            }
+        }
+
+        return redirect('dashboard');
+    }
+
     public function register()
     {
         if($this->input->post()){
@@ -160,4 +196,93 @@ class Users extends MY_Controller {
         return $this->load->view('users/register');
     }
     
+    public function changeDp()
+    {
+        
+        if(!empty($_FILES)) {
+
+            $type;
+
+            switch ($_FILES['img']['type']) {
+                case 'image/png':
+                    $type = '.png';
+                    break;
+                case 'image/jpeg':
+                    $type = '.jpg';
+                    break;
+                default:
+                $this->notifMessage('danger', 'Failed', 'Sorry. You can only upload PNGs and JPGs images.');
+                return redirect('/');
+                break;
+            }
+
+            // debug($_FILES);
+            if(!empty($this->session->Auth['img_name'])){
+                unlink("./prof_imgs/".$this->session->Auth['img_name']);
+            }
+            $config['file_name'] = sha1($this->today).$type;
+            $config['upload_path'] = './prof_imgs/';
+            $config['allowed_types'] = 'jpg|png';
+//            $config['max_size']   = '100';
+            // $config['max_width']  = '500';
+            // $config['max_height']  = '500';
+            $this->upload->initialize($config);
+            if ( ! $this->upload->do_upload('img')) {
+                // failed uploading prof image
+                $error = array('error' => $this->upload->display_errors());
+                $this->notifMessage('danger', 'Failed', 'Failed to upload image. Image may be too large');
+                return redirect('/');
+                // TODO fix me to show error message properly
+            } else {
+                // succes uploading img
+                if($this->UserModel->changeDp($config['file_name'])){
+                    if($this->UserModel->ProfInfo()){
+
+                        $data['user'] = $this->UserModel->ProfInfo();
+                        $this->notifMessage('success', 'Success!', 'Profile updated successfully.');
+                        $this->session->set_userdata('Auth', array(
+                            'id'         => $data['user']['id'],
+                            'email'      => $data['user']['email'],
+                            'first_name' => $data['user']['first_name'],
+                            'last_name'  => $data['user']['last_name'],
+                            'img_name'   => $data['user']['img_name'],
+                            ));
+                    }
+                }
+                $this->notifMessage('success', 'Success', 'Picture Changed!');
+                return redirect('/');
+
+            }
+        }
+    }
+
+    public function CreateGroup()
+    {
+        debug($this->input->post());
+        if($this->UserModel->createGroup($this->input->post())){
+            $this->notifMessage('success','Success!','Group Created.');
+        } else{
+            $this->notifMessage('danger','Failed!','Group Failed to Create.');
+        }
+        return redirect('/');
+        
+    }
+
+    // MESSAGING
+    public function sendMessage()
+    {
+        return redirect($this->agent->referrer(),'refresh');
+    }
+
+    public function ajaxFriendRequest()
+    {
+        
+        echo json_encode($this->friends);
+    }
+
+    public function ajaxFriendRequestSeenUpdate()
+    {  
+        $this->UserModel->friendReqSeenUpdate();
+    }
+
 }

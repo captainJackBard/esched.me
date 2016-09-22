@@ -1,7 +1,7 @@
 <?php
 
 $this->load->view('elements/header');
-
+debug($results);
 ?>
 
 
@@ -55,9 +55,18 @@ $this->load->view('elements/header');
           <tbody>
             <?php if(!empty($results)): ?>
             <?php foreach($results as $result): ?>
+            <?php if($this->session->Auth['id'] != $result['id']): ?>          
             <tr>
-              <td>Image here</td>
-              <td><?php echo ucwords($result['first_name'] ." ". $result['last_name']); ?></td>
+              <?php
+                if(empty($result['img_name'])){
+                  $img = 'default.png';
+                } else{
+                  $img = $result['img_name'];
+                }
+              ?>
+              <td style="width:20%"><img style="max-width:100px;" src="<?php echo './prof_imgs/'.$img; ?>"></td>
+              
+              <td><a href="<?php echo base_url(); ?>view/<?php echo $result['id']; ?>"><?php echo ucwords($result['first_name'] ." ". $result['last_name']); ?></td>
               <td>
                 <div class="btn-group">
                   <button type="button" class="btn btn-default">Action</button>
@@ -68,12 +77,13 @@ $this->load->view('elements/header');
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="view/<?php echo $result['id']; ?>">View Profile</a></li>
                     <li><a href="#">Add as Friend</a></li>
-                    <li><a href="#">Block</a></li>
                   </ul>
                 </div>
+              
 
               </td>
             </tr>
+           <?php endif; ?>   
           <?php endforeach; ?>
         <?php else: ?>
           <tr>

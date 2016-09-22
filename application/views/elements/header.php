@@ -25,17 +25,27 @@
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>dist/css/skins/_all-skins.min.css">
 
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/sol.css">
+
+  <!-- jQuery 2.2.3 -->
+<script src="<?php echo base_url(); ?>plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="<?php echo base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>  
+
+  <style type="text/css">
+    .content{width: 90%}
+    .breadcrumb {width: 80%; margin-right: auto;margin-left: auto;}
+  </style>
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-
-
-  <!-- Toaster js -->
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
@@ -51,20 +61,20 @@
     <!-- Logo -->
     <a href="<?php echo base_url(); ?>dashboard" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b><em></em>S</b>me</span>
+      <span class="logo-mini"><b><em></em>eS</b>me</span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>e</b>Sched.me</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
+    <nav class="navbar navbar-static-top" style="background-color:#367fa9">
 
       <!-- Sidebar toggle button-->
-      <a href="<?php echo base_url(); ?>#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+      <!-- <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-      </a>
+      </a> -->
       <!--Search-->
     <div class="col-sm-12 col-md-6 col-xs-11" style="position:block">
         <form class="navbar-form" action="<?php echo base_url(); ?>searches" method="post" role="search">
@@ -80,39 +90,21 @@
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-
         <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown messages-menu">
-            <a href="<?php echo base_url(); ?>" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="<?php echo base_url(); ?>" class="dropdown-toggle" data-toggle="dropdown" onclick="ajaxFriendRequestSeenUpdate()">
               <i class="fa fa-group"></i>
-              <span class="label label-danger">4</span>
+              <span class="label label-danger fb-count"></span>
             </a>
             <ul class="dropdown-menu">
               <li class="header">Friend Requests</li>
               <li>
                 <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <?php foreach($this->friends as $req): ?>
-                  <li><!-- start message -->
-                    <a href="<?php echo base_url(); ?>view/<?php echo $req['id']; ?>">
-                      <div class="pull-left">
-                        <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <h4>
-                        <?php echo ucwords($req['first_name']." ".$req['last_name']); ?>
-                        <small><i class="fa fa-clock-o"></i> <?php echo $req['r_mod']; ?></small>
-                      </h4>
-                      <form action="<?php echo base_url(); ?>users/friendRQ/<?php echo $req['id']; ?>" method="post">
-                        <button name="type" value="accept" class="btn btn-primary">Accept</button>
-                        <button class="btn btn-danger" name="type" value="delete">Delete</button>
-                      </form>
-                    </a>
-                  </li>
-                  <!-- end req -->
-                <?php endforeach; ?>
+                <ul class="menu fb-friend-request">
+                  
                 </ul>
               </li>
-              <li class="footer"><a href="<?php echo base_url(); ?>#">See All Request</a></li>
+              <li class="footer"><a href="#"></a></li>
             </ul>
           </li>
 
@@ -120,17 +112,17 @@
 
           <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown messages-menu">
-            <a href="<?php echo base_url(); ?>#" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
               <span class="label label-success">4</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 4 messages</li>
+              <li class="footer"><a href="#" data-toggle="modal" data-target="#createMessage">Create New Message</a></li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
                   <li><!-- start message -->
-                    <a href="<?php echo base_url(); ?>#">
+                    <a href="#" data-toggle="modal" data-target="#convo">
                       <div class="pull-left">
                         <!-- <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"> -->
                       </div>
@@ -144,12 +136,11 @@
                   <!-- end message -->
                 </ul>
               </li>
-              <li class="footer"><a href="<?php echo base_url(); ?>#">See All Messages</a></li>
             </ul>
           </li>
           <!-- Notifications: style can be found in dropdown.less -->
           <li class="dropdown notifications-menu">
-            <a href="<?php echo base_url(); ?>#" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-globe"></i>
               <span class="label label-warning">10</span>
             </a>
@@ -159,19 +150,19 @@
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
                   <li>
-                    <a href="<?php echo base_url(); ?>#">
+                    <a href="#">
                       <i class="fa fa-users text-aqua"></i> 5 new members joined today
                     </a>
                   </li>
                 </ul>
               </li>
-              <li class="footer"><a href="<?php echo base_url(); ?>#">View all</a></li>
+              <li class="footer"><a href="#">View all</a></li>
             </ul>
           </li>
          
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
-            <a href="<?php echo base_url(); ?>#" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- <img src="../../dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
               <i class="fa fa-user"></i>
               <span class="hidden-xs"> <?php echo ucwords($this->session->Auth['first_name'].' '.$this->session->Auth['last_name']); ?></span>
@@ -181,16 +172,21 @@
               <li class="user-header" style="height:100px">
                 <!-- <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"> -->
 
-                <p>
+               
+               <p>
+               <a href="<?php echo base_url(); ?>dashboard" style="color:white">
                   <?php echo ucwords($this->session->Auth['first_name'].' '.$this->session->Auth['last_name']); ?>
-                  <small>Enjoy Life :)</small>
+                  
+                </a>
+                <small><?php echo $this->session->Auth['email']; ?></small>
                 </p>
+                
               </li>
               <!-- Menu Body -->
               <li class="user-body">
                 <div class="row">
                   <div class="col-xs-6 text-center">
-                    <a href="<?php echo base_url(); ?>#">Friends</a>
+                    <a href="#">Friends</a>
                   </div>
                   <div class="col-xs-6 text-center">
                     <a href="<?php echo base_url(); ?>dashboard">Profile</a>
@@ -200,8 +196,11 @@
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
+
                 <div class="pull-left">
-                  <a href="<?php echo base_url(); ?>password" class="btn btn-default btn-flat">Change Password</a>
+                  <button class="btn btn-default btn-flat" data-toggle="modal" data-target="#myModalNorm">
+                    Change Password
+                  </button>
                 </div>
                 <div class="pull-right">
                   <a href="<?php echo base_url(); ?>admin/logout" class="btn btn-default btn-flat">Sign out</a>
@@ -211,7 +210,7 @@
           </li>
           <!-- Control Sidebar Toggle Button -->
           <!-- <li>
-            <a href="<?php echo base_url(); ?>#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
           </li> -->
         </ul>
       </div>
@@ -228,12 +227,13 @@
   <!--Flash Data-->
   <!--endNAV-->
 
-
 <?php
-  $this->load->view('elements/left');
+  $this->load->view('elements/createMessage');
+  $this->load->view('elements/convo');
+  //$this->load->view('elements/left');
 ?>
 
-<div class="content-wrapper">
+<div class="content-wrapper" style="margin-left:0">
 
  <?php
   $this->load->view('elements/notif');

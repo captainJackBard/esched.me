@@ -24,7 +24,7 @@
         <li class="header">MAIN NAVIGATION</li>
         <li>
           <a href="<?php echo base_url(); ?>dashboard">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+            <i class="fa fa-dashboard"></i> <span>Profile</span>
             <span class="pull-right-container">
             </span>
           </a>

@@ -5,12 +5,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['user/login'] = 'admin/login';
 
 $route['register']   = 'users/register';
-$route['dashboard']  = 'admin';
+$route['dashboard']  = 'admin/index';
 $route['password']   = 'users/password';
 
 $route['searches']   = 'users/searches';
 
 $route['view/(:num)']  = 'users/view/$1';
+
+$route['friends']  = 'users/friends';
 
 
 $route['default_controller'] = 'admin';

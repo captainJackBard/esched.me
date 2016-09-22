@@ -1,7 +1,7 @@
  </div>
   <!-- /.content-wrapper -->
 
-<footer class="main-footer">
+<footer class="main-footer" style="margin-left:0">
     <div class="pull-right hidden-xs">
       <b>Version</b> Alpha
     </div>
@@ -206,10 +206,9 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 2.2.3 -->
-<script src="<?php echo base_url(); ?>plugins/jQuery/jquery-2.2.3.min.js"></script>
-<!-- Bootstrap 3.3.6 -->
-<script src="<?php echo base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  var $base_url = '<?php echo base_url(); ?>';
+</script>
 <!-- SlimScroll -->
 <script src="<?php echo base_url(); ?>plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -218,5 +217,13 @@
 <script src="<?php echo base_url(); ?>dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url(); ?>dist/js/demo.js"></script>
+
+
+<script src="<?php echo base_url(); ?>js/sol.js"></script>
+<script src="<?php echo base_url(); ?>js/main.js"></script>
+
+<script src="<?php echo base_url(); ?>dist/js/app.min.js"></script>
+
+
 </body>
 </html>

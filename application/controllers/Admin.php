@@ -8,7 +8,7 @@ class Admin extends MY_Controller {
     public function __construct(){
         parent::__construct();
 
-        $this->load->helper(array('url', 'form', 'fallingpetals'));
+        
 
         $publicUrl = array('login', 'logout',);
         if (!in_array($this->router->method, $publicUrl)) {
@@ -19,10 +19,28 @@ class Admin extends MY_Controller {
     }
 
     public function index(){
+        // debug($this->session->Auth);
         $data['user'] = $this->UserModel->ProfInfo();
+        $data['friends'] = $this->UserModel->getFriends($this->session->Auth['id']);
+        $data['activity_post'] = $this->UserModel->getActivityPost();
+        // $data['activities'] = $this->UserModel->getActivities();
         // $$data['user']['birthdate'] = $data['user']['birthdate']->format('m-d-Y');
-        return $this->load->view('admin/index',$data);
 
+        $activities = array();
+        // debug($this->UserModel->getActivities);
+        // exit();
+        foreach ($this->UserModel->getActivities() as $the) {
+            array_push($activities, array(
+                ucwords($the['title']),
+                $the['lat'],
+                $the['long'],
+                ucwords($the['address']),
+            ));
+        }
+
+        $data['activities'] = $activities;
+
+        return $this->load->view('admin/index',$data);
     }
 
     public function login(){
@@ -42,6 +60,7 @@ class Admin extends MY_Controller {
                     'email'      => $status['email'],
                     'first_name' => $status['first_name'],
                     'last_name'  => $status['last_name'],
+                    'img_name'   => $status['img_name'],
                 ));
 
                 return redirect('dashboard');
@@ -62,6 +81,11 @@ class Admin extends MY_Controller {
         $this->session->unset_userdata('Auth');
 
         return redirect('user/login');
+    }
+
+    public function socialLogIn()
+    {
+        exit(1);
     }
     
 }
